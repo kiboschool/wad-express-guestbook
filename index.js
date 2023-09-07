@@ -7,17 +7,34 @@ const PORT = 3000;
 // Setup SQLite database
 const db = new sqlite3.Database(':memory:');
 
+db.serialize(() => {
+    db.run("CREATE TABLE guests (id INTEGER PRIMARY KEY, name TEXT, email TEXT UNIQUE, message TEXT)");
+});
+
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
+// Main route
 app.get('/', (req, res) => {
-    // TODO: Add code to get all reviews
-    res.render('index');
+    const query = "SELECT name, email, message FROM guests";
+    db.all(query, [], (err, guests) => {
+        if (err) throw err;
+        res.render('index', { guests: guests });
+    });
 });
 
 app.post('/', (req, res) => {
-    // TODO: Add code to create review in DB
-    res.send({})
+    const { name, email, message } = req.body;
+    if (!name || !email || !message) {
+        return res.redirect('/');
+    }
+
+    const stmt = db.prepare("INSERT INTO guests (name, email, message) VALUES (?, ?, ?)");
+    stmt.run([name, email, message], function(err) {
+        if (err) throw err;
+        res.redirect('/');
+    });
+    stmt.finalize();
 });
 
 app.listen(PORT, () => {

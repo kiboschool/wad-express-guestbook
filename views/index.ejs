@@ -4,9 +4,26 @@
     <title>Guestbook</title>
 </head>
 <body>
-    <h2>Guestbook Entries</h2>
-    
     <h2>Submit Your Entry</h2>
+    <form action="/" method="post">
+        <label>Name:</label>
+        <input type="text" name="name" required>
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        <label>Message:</label>
+        <textarea name="message" required></textarea>
+        <input type="submit" value="Submit">
+    </form>
     
+    <h2>Guestbook Entries</h2>
+    <ul>
+        <% guests.forEach(guest => { %>
+            <li>
+                <strong>Name:</strong> <%= guest.name %> <br>
+                <strong>Email:</strong> <%= guest.email %> <br>
+                <strong>Message:</strong> <%= guest.message %> <br>
+            </li>
+        <% }); %>
+    </ul>
 </body>
 </html>
