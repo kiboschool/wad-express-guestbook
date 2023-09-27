@@ -1,0 +1,13 @@
+{
+    "devDependencies": {
+      "@testing-library/dom": "^9.3.0",
+      "html-validate": "^7.17.0",
+      "jest": "^29.5.0",
+      "jest-autograding-reporter": "^0.1.6",
+      "jest-environment-jsdom": "^29.5.0"
+    },
+    "scripts": {
+      "test": "jest",
+      "grade": "jest --bail=0 --testResultsProcessor jest-autograding-reporter"
+    }
+}
