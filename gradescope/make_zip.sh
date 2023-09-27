@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
-# copy files with tests
-cp ../index.test.js ./
-# copy package.json
+# Loop through all subdirectories to find test files
+test_cases=$(find .. -type f -name "*.test.js" -maxdepth 2)
+for test in $test_cases; do
+  # Get the parent directory name
+  parent_dir=$(basename "$(dirname "$test")")
+  mkdir -p ${parent_dir}
+  cp "${test}" "${test#*/}"
+done
 
-TESTS=$(ls ../*.test.js)
-zip -r gradescope.zip setup.sh run_autograder package.json jest.config.js $TESTS
+find . -type f -name '*.test.js' -exec zip gradescope.zip setup.sh run_autograder package.json jest.config.js {} +
 
-# remove copied files
-rm ./index.test.js
+# Remove test files from gradescope after zip
+rm ./*.test.js
