@@ -37,8 +37,8 @@ app.post('/', (req, res) => {
     stmt.finalize();
 });
 
-app.listen(PORT, () => {
+server = app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-module.exports = app;
+module.exports = {app, server};

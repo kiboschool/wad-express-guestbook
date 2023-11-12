@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
 # install node and npm
-curl -fsSL https://deb.nodesource.com/setup_18.x | bash - &&\
-apt-get install -y nodejs
+echo "David"
+curl -SLO https://deb.nodesource.com/nsolid_setup_deb.sh
+chmod 500 nsolid_setup_deb.sh
+./nsolid_setup_deb.sh 18
+apt-get install nodejs -y
 
 # install dependencies
 cd /autograder/source

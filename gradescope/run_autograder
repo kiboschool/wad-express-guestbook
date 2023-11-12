@@ -6,5 +6,5 @@ cp -rn /autograder/submission/* /autograder/source/
 
 cd /autograder/source
 
-npx jest --testResultsProcessor jest-autograding-reporter
+npx jest --detectOpenHandles --testResultsProcessor jest-autograding-reporter
 cp /autograder/source/results.json /autograder/results/results.json
